@@ -13,7 +13,8 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import com.google.android.gms.games.PlayGamesSdk
-
+import com.google.android.gms.games.PlayGames
+import com.google.android.gms.games.GamesSignInClient
 
 private const val METHOD_CHANNEL_NAME = "games_services"
 private const val EVENT_CHANNEL_NAME = "games_services.player"
@@ -66,13 +67,6 @@ class GamesServicesPlugin : FlutterPlugin,
 
   private fun init() {
     val activityPluginBinding = activityPluginBinding ?: return
-    // Initialize Play Games SDK
-    try {
-      PlayGamesSdk.initialize(activityPluginBinding.activity)
-      android.util.Log.d("GamesServicesAuth", "PlayGamesSdk.initialize() called successfully")
-    } catch (e: Exception) {
-      android.util.Log.e("GamesServicesAuth", "PlayGamesSdk.initialize() failed: ${e.message}")
-    }
     leaderboards = Leaderboards(activityPluginBinding)
     achievements = Achievements(activityPluginBinding)
     saveGame = SaveGame(activityPluginBinding)
